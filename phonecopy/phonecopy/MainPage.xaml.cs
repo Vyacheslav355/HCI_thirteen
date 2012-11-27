@@ -16,20 +16,22 @@ namespace phonecopy
    
     public partial class MainPage : PhoneApplicationPage
     {
+        Model model = Model.getInstance();
         // Constructor
         public MainPage()
         {
             InitializeComponent();
         }
 
-       
         private void paperInputButton_Click(object sender, RoutedEventArgs e)
         {
+            model.setPDF(false);
             NavigationService.Navigate(new Uri("/previewPage1.xaml", UriKind.Relative));
         }
 
         private void printPdfButton_Click(object sender, RoutedEventArgs e)
         {
+            model.setPDF(true);
             NavigationService.Navigate(new Uri("/filelist.xaml", UriKind.Relative));
         }
     }

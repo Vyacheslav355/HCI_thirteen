@@ -29,9 +29,14 @@ namespace phonecopy
             return thisInst;
         }
 
-        public void setPDF()
+        public void setPDF(bool PDFvalue)
         {
-            PDF = true;
+            PDF = PDFvalue;
+        }
+
+        public bool getPDF()
+        {
+            return PDF;
         }
     }
 }

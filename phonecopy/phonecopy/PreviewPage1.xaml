@@ -22,15 +22,12 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28"></StackPanel>
-        <Image Grid.Row="1" Height="711" HorizontalAlignment="Left" Name="preview1" Stretch="Fill" VerticalAlignment="Top" Width="480" Source="/phonecopy;component/preview.png" />
+        <Image Height="756" HorizontalAlignment="Left" Name="preview1" Stretch="Fill" VerticalAlignment="Top" Width="480" Source="/phonecopy;component/preview.png" Grid.RowSpan="2" />
         <!--ContentPanel - place additional content here-->
     </Grid>
  
    <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/icons/appbar.add.rest.png" Text="Scan next page"/>
-            <shell:ApplicationBarIconButton IconUri="/icons/appbar.download.rest.png" Text="Print"/>
-            <shell:ApplicationBarIconButton IconUri="/icons/appbar.save.rest.png" Text="Save or export"/>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 

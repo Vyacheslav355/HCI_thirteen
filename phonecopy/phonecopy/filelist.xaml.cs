@@ -22,8 +22,6 @@ namespace phonecopy
 
         private void file1_Click(object sender, RoutedEventArgs e)
         {
-            Model model = Model.getInstance();
-            model.setPDF();
             NavigationService.Navigate(new Uri("/previewPage1.xaml", UriKind.Relative));
         }
     }
