@@ -25,24 +25,35 @@ namespace phonecopy
         {
             base.OnNavigatedTo(e);
             Model model = Model.getInstance();
-            if (model.getPDF() == true)
+            ApplicationBarIconButton b = null;
+
+            if(ApplicationBar.Buttons.Count != 0)
+                b = (ApplicationBarIconButton)ApplicationBar.Buttons[0];
+
+            if (b == null)
             {
-                ApplicationBarIconButton printButton = new ApplicationBarIconButton(new Uri("/icons/appbar.download.rest.png", UriKind.Relative)) { Text = "Scan next page" };
-                ApplicationBar.Buttons.Add(printButton);
+                if (model.getPDF() == true)
+                {
+                    ApplicationBarIconButton printButton = new ApplicationBarIconButton(new Uri("/icons/appbar.download.rest.png", UriKind.Relative)) { Text = "Scan next page" };
+                    printButton.Click += addButton_Click;
+                    ApplicationBar.Buttons.Add(printButton);
+                }
+                else
+                {
+                    ApplicationBarIconButton addButton = new ApplicationBarIconButton(new Uri("/icons/appbar.add.rest.png", UriKind.Relative)) { Text = "Scan next page" };
+                    ApplicationBarIconButton printButton = new ApplicationBarIconButton(new Uri("/icons/appbar.download.rest.png", UriKind.Relative)) { Text = "Print" };
+                    ApplicationBarIconButton saveButton = new ApplicationBarIconButton(new Uri("/icons/appbar.save.rest.png", UriKind.Relative)) { Text = "Save or export" };
+                    printButton.Click += addButton_Click;
+                    ApplicationBar.Buttons.Add(addButton);
+                    ApplicationBar.Buttons.Add(printButton);
+                    ApplicationBar.Buttons.Add(saveButton);
+                }
             }
-            else
-            {
-                ApplicationBarIconButton addButton = new ApplicationBarIconButton(new Uri("/icons/appbar.add.rest.png", UriKind.Relative)) { Text = "Scan next page" };
-                ApplicationBarIconButton printButton = new ApplicationBarIconButton(new Uri("/icons/appbar.download.rest.png", UriKind.Relative)) { Text = "Print" };
-                ApplicationBarIconButton saveButton = new ApplicationBarIconButton(new Uri("/icons/appbar.save.rest.png", UriKind.Relative)) { Text = "Save or export" };
-                //appBarButtonAdd.Click += add_Click;
-                ApplicationBar.Buttons.Add(addButton);
-                ApplicationBar.Buttons.Add(printButton);
-                ApplicationBar.Buttons.Add(saveButton);
-                // IconUri="/icons/appbar.add.rest.png" Text="Scan next page"/>
-                // IconUri="/icons/appbar.download.rest.png" Text="Print"
-                //"/icons/appbar.save.rest.png" Text="Save or export"
-            }
+        }
+
+        private void addButton_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/printOptionPage.xaml", UriKind.Relative));
         }
     }
 }
