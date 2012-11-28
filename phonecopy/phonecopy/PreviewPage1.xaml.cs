@@ -35,7 +35,7 @@ namespace phonecopy
                 if (model.getPDF() == true)
                 {
                     ApplicationBarIconButton printButton = new ApplicationBarIconButton(new Uri("/icons/appbar.download.rest.png", UriKind.Relative)) { Text = "Scan next page" };
-                    printButton.Click += addButton_Click;
+                    printButton.Click += printButton_Click;
                     ApplicationBar.Buttons.Add(printButton);
                 }
                 else
@@ -43,7 +43,9 @@ namespace phonecopy
                     ApplicationBarIconButton addButton = new ApplicationBarIconButton(new Uri("/icons/appbar.add.rest.png", UriKind.Relative)) { Text = "Scan next page" };
                     ApplicationBarIconButton printButton = new ApplicationBarIconButton(new Uri("/icons/appbar.download.rest.png", UriKind.Relative)) { Text = "Print" };
                     ApplicationBarIconButton saveButton = new ApplicationBarIconButton(new Uri("/icons/appbar.save.rest.png", UriKind.Relative)) { Text = "Save or export" };
-                    printButton.Click += addButton_Click;
+                    printButton.Click += printButton_Click;
+                    addButton.Click += addButton_Click;
+                    saveButton.Click += saveButton_Click;
                     ApplicationBar.Buttons.Add(addButton);
                     ApplicationBar.Buttons.Add(printButton);
                     ApplicationBar.Buttons.Add(saveButton);
@@ -51,9 +53,19 @@ namespace phonecopy
             }
         }
 
-        private void addButton_Click(object sender, EventArgs e)
+        private void printButton_Click(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("/printOptionPage.xaml", UriKind.Relative));
+        }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/shareOptionPage.xaml", UriKind.Relative));
+        }
+
+        private void addButton_Click(object sender, EventArgs e)
+        {
+       
         }
     }
 }

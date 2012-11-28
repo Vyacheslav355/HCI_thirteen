@@ -9,6 +9,8 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Windows.Controls.Primitives;
+using System.Windows.Threading;
+using System.Windows.Navigation;
 
 
 /*Singleton object for storing internal state data*/
@@ -25,6 +27,7 @@ namespace phonecopy
         private bool waitingpage = false;
 
         private Popup pUp;
+        private DispatcherTimer dispatcherTimer;
 
         public static Model getInstance()
         {
@@ -53,6 +56,11 @@ namespace phonecopy
             if(showPopup("Printing...") == false)
                 return;
             pUp.IsOpen = true;
+
+            dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 3);
+            dispatcherTimer.Start();
 
             //pUp.IsOpen = false;
             //printing = false;
@@ -107,5 +115,16 @@ namespace phonecopy
 
             return true;
         }
+
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            if (printing == true)
+            {
+                printing = false;
+                pUp.IsOpen = false;
+                pUp = null;
+            }
+        }
+
     }
 }

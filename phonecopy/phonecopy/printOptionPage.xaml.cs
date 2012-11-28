@@ -29,7 +29,8 @@ namespace phonecopy
         {
             this.ApplicationBar.IsVisible = false;
             model.Print();
-            this.ApplicationBar.IsVisible = true;
+
+            NavigationService.GoBack();
         }
 
         protected override void OnBackKeyPress(CancelEventArgs e)
