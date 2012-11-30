@@ -34,14 +34,14 @@ namespace phonecopy
             {
                 if (model.getPDF() == true)
                 {
-                    ApplicationBarIconButton printButton = new ApplicationBarIconButton(new Uri("/icons/appbar.download.rest.png", UriKind.Relative)) { Text = "Scan next page" };
+                    ApplicationBarIconButton printButton = new ApplicationBarIconButton(new Uri("/icons/appbar.printer.blank.png", UriKind.Relative)) { Text = "Scan next page" };
                     printButton.Click += printButton_Click;
                     ApplicationBar.Buttons.Add(printButton);
                 }
                 else
                 {
                     ApplicationBarIconButton addButton = new ApplicationBarIconButton(new Uri("/icons/appbar.add.rest.png", UriKind.Relative)) { Text = "Scan next page" };
-                    ApplicationBarIconButton printButton = new ApplicationBarIconButton(new Uri("/icons/appbar.download.rest.png", UriKind.Relative)) { Text = "Print" };
+                    ApplicationBarIconButton printButton = new ApplicationBarIconButton(new Uri("/icons/appbar.printer.blank.png", UriKind.Relative)) { Text = "Print" };
                     ApplicationBarIconButton saveButton = new ApplicationBarIconButton(new Uri("/icons/appbar.save.rest.png", UriKind.Relative)) { Text = "Save or export" };
                     printButton.Click += printButton_Click;
                     addButton.Click += addButton_Click;

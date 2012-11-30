@@ -22,7 +22,7 @@
 
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ApplicationTitle" Text="MY APPLICATION" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock x:Name="ApplicationTitle" Text="SMARTCOPY" Style="{StaticResource PhoneTextNormalStyle}"/>
             <TextBlock x:Name="PageTitle" Text="Select input" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
@@ -34,7 +34,7 @@
                 <ColumnDefinition Width="302*" />
             </Grid.ColumnDefinitions>
             <Image Height="150" HorizontalAlignment="Left" Margin="6,83,0,0" Name="image1" Stretch="Fill" VerticalAlignment="Top" Width="145" Source="/phonecopy;component/icons/paper.png" />
-            <Image Height="150" HorizontalAlignment="Left" Margin="6,239,0,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="145" Source="/phonecopy;component/icons/usb_removable.png" />
+            <Image Height="150" HorizontalAlignment="Left" Margin="6,239,0,0" Name="image2" Stretch="Fill" VerticalAlignment="Top" Width="145" Source="adobe_acrobat.png" />
             <Button Content="Scan or copy paper" Grid.Column="2" Height="72" HorizontalAlignment="Left" Margin="0,122,0,0" Name="paperInputButton" VerticalAlignment="Top" Width="296" Click="paperInputButton_Click" />
             <Button Content="Print PDF" Grid.Column="2" Height="72" HorizontalAlignment="Left" Margin="0,273,0,0" Name="printPdfButton" VerticalAlignment="Top" Width="296" Click="printPdfButton_Click" />
         </Grid>
