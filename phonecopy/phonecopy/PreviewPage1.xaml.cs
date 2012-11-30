@@ -65,6 +65,7 @@ namespace phonecopy
 
         private void addButton_Click(object sender, EventArgs e)
         {
+            NavigationService.Navigate(new Uri("/insertPage.xaml", UriKind.Relative));
        
         }
     }

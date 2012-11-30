@@ -20,7 +20,7 @@ namespace phonecopy
             InitializeComponent();
         }
 
-        private void file1_Click(object sender, RoutedEventArgs e)
+        private void file_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("/previewPage1.xaml", UriKind.Relative));
         }

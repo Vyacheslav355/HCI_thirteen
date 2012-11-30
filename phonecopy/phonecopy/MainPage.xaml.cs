@@ -26,7 +26,7 @@ namespace phonecopy
         private void paperInputButton_Click(object sender, RoutedEventArgs e)
         {
             model.setPDF(false);
-            NavigationService.Navigate(new Uri("/previewPage1.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("/insertPage.xaml", UriKind.Relative));
         }
 
         private void printPdfButton_Click(object sender, RoutedEventArgs e)

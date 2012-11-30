@@ -25,6 +25,7 @@ namespace phonecopy
         private bool scanning = false;
         private bool disconnected = false;
         private bool waitingpage = false;
+        private bool firstPageScanned = false;
 
         private Popup pUp;
         private DispatcherTimer dispatcherTimer;
@@ -124,6 +125,16 @@ namespace phonecopy
                 pUp.IsOpen = false;
                 pUp = null;
             }
+        }
+
+        public void setFirstScan()
+        {
+            firstPageScanned = true;
+        }
+
+        public bool firstScan()
+        {
+            return firstPageScanned;
         }
 
     }

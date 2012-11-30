@@ -10,30 +10,29 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
-using System.Windows.Controls.Primitives;
-using System.Threading;
-using System.ComponentModel;
 using System.Windows.Threading;
+using System.ComponentModel;
 
 namespace phonecopy
 {
-    public partial class printOptionPage : PhoneApplicationPage
+    public partial class insertPage : PhoneApplicationPage
     {
-        private Model model = Model.getInstance();
-        private DispatcherTimer dispatcherTimer;
-        private bool printing = false;
         private ProgressBar bar = null;
+        private bool scanning = false;
+        private DispatcherTimer dispatcherTimer = null;
 
-        public printOptionPage()
+        private Model model = Model.getInstance();
+
+        public insertPage()
         {
             InitializeComponent();
         }
 
-        private void printButton_Click(object sender, EventArgs e)
+        private void OKButton_Click(object sender, EventArgs e)
         {
             bar = new ProgressBar();
             bar.IsIndeterminate = true;
-            printing = true;           
+            scanning = true;
 
             this.ContentPanel.Children.Add(bar);
             this.ApplicationBar.IsVisible = false;
@@ -45,27 +44,32 @@ namespace phonecopy
 
         }
 
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            if (scanning == true)
+            {
+                this.ContentPanel.Children.Remove(bar);
+                this.ApplicationBar.IsVisible = true;
+                scanning = false;
+                if (model.firstScan() == true)
+                    NavigationService.GoBack();
+                else
+                {
+                    model.setFirstScan();
+                    NavigationService.Navigate(new Uri("/PreviewPage1.xaml", UriKind.Relative));
+                }
+            }
+        }
+
         protected override void OnBackKeyPress(CancelEventArgs e)
         {
-            if (printing == true)
+            if (scanning == true)
             {
-                printing = false;
+                scanning = false;
                 this.ContentPanel.Children.Remove(bar);
                 this.ApplicationBar.IsVisible = true;
                 e.Cancel = true;
             }
         }
-
-        private void dispatcherTimer_Tick(object sender, EventArgs e)
-        {
-            if (printing == true)
-            {
-                this.ContentPanel.Children.Remove(bar);
-                this.ApplicationBar.IsVisible = true;
-                printing = false;
-                NavigationService.GoBack();
-            }
-        }
-
     }
 }
