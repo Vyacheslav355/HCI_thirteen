@@ -101,9 +101,9 @@ namespace phonecopy
             paperPollTimer.Start();
         }
 
-        public void reset(bool pdf = false)
+        public void reset(bool pdf = false, int initialPageCount = 0)
         {
-            pageCount = 0;
+            pageCount = initialPageCount;
             PDF = pdf;
             abort = false;
         }

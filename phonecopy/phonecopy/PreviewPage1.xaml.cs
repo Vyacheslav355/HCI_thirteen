@@ -52,6 +52,9 @@ namespace phonecopy
                 }
             }
 
+            // Update page count
+            PageCount.Text = "Page 1/" + model.PageCount;
+
             
             if (model.Abort)
             {

@@ -31,7 +31,7 @@ namespace phonecopy
 
         private void printPdfButton_Click(object sender, RoutedEventArgs e)
         {
-            model.reset(true);
+            model.reset(true, 10);
             NavigationService.Navigate(new Uri("/filelist.xaml", UriKind.Relative));
         }
     }
