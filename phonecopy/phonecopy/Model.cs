@@ -20,6 +20,8 @@ namespace phonecopy
     {
         private static Model thisInst = null;
 
+        private bool connected = false;
+        private bool paper = false;
         private bool PDF = false;
         private bool printing = false;
         private bool scanning = false;
@@ -29,6 +31,8 @@ namespace phonecopy
 
         private Popup pUp;
         private DispatcherTimer dispatcherTimer;
+        private DispatcherTimer connectionPollTimer;
+        private DispatcherTimer paperPollTimer;
 
         public static Model getInstance()
         {
@@ -38,6 +42,55 @@ namespace phonecopy
             }
 
             return thisInst;
+        }
+
+        public Model()
+        {
+            // Create connection poller
+            connectionPollTimer = new System.Windows.Threading.DispatcherTimer();
+            connectionPollTimer.Tick += new EventHandler(pollConnection);
+            connectionPollTimer.Interval = new TimeSpan(0, 0, 3);
+            connectionPollTimer.Start();
+
+            // Poll paper status
+            paperPollTimer = new System.Windows.Threading.DispatcherTimer();
+            paperPollTimer.Tick += new EventHandler(pollPaper);
+            paperPollTimer.Interval = new TimeSpan(0, 0, 2);
+            paperPollTimer.Start();
+        }
+
+        private void pollConnection(object sender, EventArgs e)
+        {
+            WebClient client = new WebClient();
+            client.DownloadStringCompleted += (s, response) =>
+                {
+                    if (response.Result == "0")
+                    {
+                        connected = false;
+                    }
+                    else
+                    {
+                        connected = true;
+                    }
+                };
+            client.DownloadStringAsync(new Uri("http://adii.hci.jit.su/connected?ts=" + DateTime.Now));
+        }
+
+        private void pollPaper(object sender, EventArgs e)
+        {
+            WebClient client = new WebClient();
+            client.DownloadStringCompleted += (s, response) =>
+            {
+                if (response.Result == "0")
+                {
+                    paper = false;
+                }
+                else
+                {
+                    paper = true;
+                }
+            };
+            client.DownloadStringAsync(new Uri("http://adii.hci.jit.su/paper?ts=" + DateTime.Now));
         }
 
         public void setPDF(bool PDFvalue)

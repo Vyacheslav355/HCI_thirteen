@@ -34,7 +34,7 @@ namespace phonecopy
             {
                 if (model.getPDF() == true)
                 {
-                    ApplicationBarIconButton printButton = new ApplicationBarIconButton(new Uri("/icons/appbar.printer.blank.png", UriKind.Relative)) { Text = "Scan next page" };
+                    ApplicationBarIconButton printButton = new ApplicationBarIconButton(new Uri("/icons/appbar.printer.blank.png", UriKind.Relative)) { Text = "Print" };
                     printButton.Click += printButton_Click;
                     ApplicationBar.Buttons.Add(printButton);
                 }
