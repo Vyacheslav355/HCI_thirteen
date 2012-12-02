@@ -20,7 +20,7 @@ namespace phonecopy
     {
         private static Model thisInst = null;
 
-        private bool connected = false;
+        private bool connected = true;
         public bool Connected
         {
             get
@@ -113,13 +113,24 @@ namespace phonecopy
             WebClient client = new WebClient();
             client.DownloadStringCompleted += (s, response) =>
                 {
+                    bool connectionStatus;
                     if (response.Result == "0")
                     {
-                        connected = false;
+                        connectionStatus = false;
                     }
                     else
                     {
-                        connected = true;
+                        connectionStatus = true;
+                    }
+
+                    if (connectionStatus != connected)
+                    {
+                        if (!connectionStatus)
+                        {
+                            // Navigate to pairing view
+                            ((Microsoft.Phone.Controls.PhoneApplicationFrame)Application.Current.RootVisual).Navigate(new Uri("/Connect.xaml", UriKind.Relative));
+                        }
+                        connected = connectionStatus;
                     }
                 };
             client.DownloadStringAsync(new Uri("http://adii.hci.jit.su/connected?ts=" + DateTime.Now));
