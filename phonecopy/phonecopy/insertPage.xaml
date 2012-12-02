@@ -29,6 +29,8 @@
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <TextBlock Height="86" HorizontalAlignment="Left" Margin="6,6,0,0" Name="Message" Text="Proceed when paper is in place" VerticalAlignment="Top" Width="450" />
+            <TextBlock Name="ScanText" Text="Scanning..." Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" Margin="181,231,181,254" />
+            <ProgressBar IsIndeterminate="True" Visibility="Collapsed" Name="ScanBar"/>
         </Grid>
     </Grid>
  

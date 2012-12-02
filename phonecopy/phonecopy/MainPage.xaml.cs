@@ -25,13 +25,13 @@ namespace phonecopy
 
         private void paperInputButton_Click(object sender, RoutedEventArgs e)
         {
-            model.setPDF(false);
-            NavigationService.Navigate(new Uri("/insertPage.xaml", UriKind.Relative));
+            model.reset(false);
+            NavigationService.Navigate(new Uri("/PreviewPage1.xaml", UriKind.Relative));
         }
 
         private void printPdfButton_Click(object sender, RoutedEventArgs e)
         {
-            model.setPDF(true);
+            model.reset(true);
             NavigationService.Navigate(new Uri("/filelist.xaml", UriKind.Relative));
         }
     }

@@ -21,7 +21,49 @@ namespace phonecopy
         private static Model thisInst = null;
 
         private bool connected = false;
+        public bool Connected
+        {
+            get
+            {
+                return connected;
+            }
+        }
+
         private bool paper = false;
+        public bool Paper
+        {
+            get
+            {
+                return paper;
+            }
+        }
+
+        private int pageCount;
+        public int PageCount
+        {
+            get
+            {
+                return pageCount;
+            }
+            set
+            {
+                pageCount = value;
+            }
+        }
+
+        private bool abort = false;
+        public bool Abort
+        {
+            get
+            {
+                return abort;
+            }
+            set
+            {
+                abort = value;
+            }
+        }
+
         private bool PDF = false;
         private bool printing = false;
         private bool scanning = false;
@@ -57,6 +99,13 @@ namespace phonecopy
             paperPollTimer.Tick += new EventHandler(pollPaper);
             paperPollTimer.Interval = new TimeSpan(0, 0, 2);
             paperPollTimer.Start();
+        }
+
+        public void reset(bool pdf = false)
+        {
+            pageCount = 0;
+            PDF = pdf;
+            abort = false;
         }
 
         private void pollConnection(object sender, EventArgs e)

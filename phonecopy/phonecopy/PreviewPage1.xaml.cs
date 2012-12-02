@@ -18,7 +18,7 @@ namespace phonecopy
     {
         public PreviewPage1()
         {
-            InitializeComponent();    
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -50,6 +50,17 @@ namespace phonecopy
                     ApplicationBar.Buttons.Add(printButton);
                     ApplicationBar.Buttons.Add(saveButton);
                 }
+            }
+
+            
+            if (model.Abort)
+            {
+                NavigationService.GoBack();
+            }
+            else if (!model.getPDF() && model.PageCount < 1)
+            {
+                // Request first page when entering preview
+                NavigationService.Navigate(new Uri("/insertPage.xaml", UriKind.Relative));
             }
         }
 

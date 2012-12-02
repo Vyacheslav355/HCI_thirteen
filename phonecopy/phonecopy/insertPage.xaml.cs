@@ -17,7 +17,7 @@ namespace phonecopy
 {
     public partial class insertPage : PhoneApplicationPage
     {
-        private ProgressBar bar = null;
+        //private ProgressBar bar;
         private bool scanning = false;
         private DispatcherTimer dispatcherTimer = null;
 
@@ -26,49 +26,85 @@ namespace phonecopy
         public insertPage()
         {
             InitializeComponent();
+
+            dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(scanningCompleted);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 4);
+        }
+
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+
+            if (model.Paper)
+            {
+                // Paper is already in place
+                // Start scanning automatically
+                startScanning();
+            }
+            else
+            {
+
+            }
+        }
+
+        private void startScanning()
+        {
+            scanning = true;
+
+            this.ScanBar.Visibility = System.Windows.Visibility.Visible;
+            this.ScanText.Visibility = System.Windows.Visibility.Visible;
+            this.ApplicationBar.IsVisible = false;
+
+            dispatcherTimer.Start();
+        }
+
+        private void stopScanning()
+        {
+            dispatcherTimer.Stop();
+            scanning = false;
+            this.ScanBar.Visibility = System.Windows.Visibility.Collapsed;
+            this.ScanText.Visibility = System.Windows.Visibility.Collapsed;
+            this.ApplicationBar.IsVisible = true;
         }
 
         private void OKButton_Click(object sender, EventArgs e)
         {
-            bar = new ProgressBar();
-            bar.IsIndeterminate = true;
-            scanning = true;
-
-            this.ContentPanel.Children.Add(bar);
-            this.ApplicationBar.IsVisible = false;
-
-            dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 5);
-            dispatcherTimer.Start();
+            if (model.Paper)
+            {
+                startScanning();
+            }
+            else
+            {
+                // Error, no paper
+            }
 
         }
 
-        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        private void scanningCompleted(object sender, EventArgs e)
         {
-            if (scanning == true)
+            if (scanning)
             {
-                this.ContentPanel.Children.Remove(bar);
-                this.ApplicationBar.IsVisible = true;
-                scanning = false;
-                if (model.firstScan() == true)
-                    NavigationService.GoBack();
-                else
-                {
-                    model.setFirstScan();
-                    NavigationService.Navigate(new Uri("/PreviewPage1.xaml", UriKind.Relative));
-                }
+                stopScanning();
+
+                model.PageCount += 1;
+                NavigationService.GoBack();
             }
         }
 
         protected override void OnBackKeyPress(CancelEventArgs e)
         {
-            if (scanning == true)
+            if (scanning)
             {
-                scanning = false;
-                this.ContentPanel.Children.Remove(bar);
-                this.ApplicationBar.IsVisible = true;
+                stopScanning();
                 e.Cancel = true;
+            }
+            else
+            {
+                if (model.PageCount < 1)
+                {
+                    model.Abort = true;
+                }
             }
         }
     }
