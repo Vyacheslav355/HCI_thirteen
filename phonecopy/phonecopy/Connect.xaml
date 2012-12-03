@@ -23,12 +23,13 @@
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBlock x:Name="ApplicationTitle" Text="SMARTCOPY" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="Pair" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock x:Name="PageTitle" Text="Connect" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <TextBlock TextWrapping="Wrap"  Text="Place your phone on the indicator on the photocopier" />
+            <TextBlock TextWrapping="Wrap"  Text="Connect to a copymachine by placing your phone on the indicator" Margin="12,6,17,15" />
+            <Image Source="nfc.png" Margin="-44,154,-45,202" />
         </Grid>
     </Grid>
  
