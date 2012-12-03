@@ -17,45 +17,54 @@ namespace phonecopy
 {
     public partial class shareOptionPage : PhoneApplicationPage
     {
-        private ProgressBar bar = null;
         private Boolean exporting = false;
         private DispatcherTimer dispatcherTimer = null;
 
         public shareOptionPage()
         {
             InitializeComponent();
-        }
-
-        private void UriClick(object sender, RoutedEventArgs e)
-        {
-            bar = new ProgressBar();
-            bar.IsIndeterminate = true;
-            exporting = true;
-
-            this.ContentPanel.Children.Add(bar);
 
             dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 5);
-            dispatcherTimer.Start();
+        }
+
+        private void UriClick(object sender, RoutedEventArgs e)
+        {
+            startExporting();
+        }
+
+        private void startExporting()
+        {
+            if (!exporting)
+            {
+                dispatcherTimer.Start();
+                exporting = true;
+                ExportingBar.Visibility = System.Windows.Visibility.Visible;
+            }
+        }
+
+        private void finishExporting()
+        {
+            if (exporting)
+            {
+                exporting = false;
+                dispatcherTimer.Stop();
+                ExportingBar.Visibility = System.Windows.Visibility.Collapsed;
+            }
         }
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            if (exporting == true)
-            {
-                this.ContentPanel.Children.Remove(bar);
-                exporting = false;
-                NavigationService.GoBack();
-            }
+            finishExporting();
+            NavigationService.GoBack();
         }
 
         protected override void OnBackKeyPress(CancelEventArgs e)
         {
-            if (exporting == true)
+            if (exporting)
             {
-                exporting = false;
-                this.ContentPanel.Children.Remove(bar);
+                finishExporting();
                 e.Cancel = true;
             }
         }

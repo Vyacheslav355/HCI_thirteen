@@ -15,6 +15,9 @@
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -23,14 +26,33 @@
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBlock x:Name="ApplicationTitle" Text="SMARTCOPY" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="Share or save" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock x:Name="PageTitle" Text="Share" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <HyperlinkButton Content="DropBox" Height="30" HorizontalAlignment="Left" Margin="0,6,0,0" Name="DropBox" VerticalAlignment="Top" Width="111" Click="UriClick" />
-            <HyperlinkButton Content="Skydrive" Height="30" HorizontalAlignment="Left" Margin="-12,42,0,0" Name="Skydrive" VerticalAlignment="Top" Width="134" Click="UriClick"/>
-            <HyperlinkButton Content="Google Drive" Height="30" HorizontalAlignment="Left" Margin="0,78,0,0" Name="gDrive" VerticalAlignment="Top" Width="156" Click="UriClick"/>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="120"/>
+                <RowDefinition Height="120"/>
+                <RowDefinition Height="120"/>
+                <RowDefinition Height="120"/>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" Grid.Row="0">
+                <Image Source="icons/dropbox.png" Width="120"/>
+                <HyperlinkButton Content="Save to Dropbox"
+                      Height="30" Name="DropBox" Click="UriClick"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                <Image Source="icons/skydrive.png" Width="120"/>
+                <HyperlinkButton Content="Save to Skydrive"
+                      Height="30" Name="Skydrive" Click="UriClick"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="2">
+                <Image Source="icons/gmail.png" Width="120"/>
+                <HyperlinkButton Content="Attach to email"
+                      Height="30" Name="Email" Click="UriClick"/>
+            </StackPanel>
+            <ProgressBar IsIndeterminate="True" Grid.Row="3" Visibility="Collapsed" Name="ExportingBar"/>
         </Grid>
     </Grid>
  

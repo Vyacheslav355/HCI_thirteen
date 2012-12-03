@@ -21,7 +21,7 @@ namespace phonecopy
             InitializeComponent();
         }
 
-        private void selectPdf(object sender, GestureEventArgs e)
+        private void selectPdf(object sender, System.Windows.Input.GestureEventArgs e)
         {
             NavigationService.Navigate(new Uri("/PreviewPage1.xaml", UriKind.Relative));
         }

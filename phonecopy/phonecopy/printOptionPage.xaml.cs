@@ -22,49 +22,65 @@ namespace phonecopy
         private Model model = Model.getInstance();
         private DispatcherTimer dispatcherTimer;
         private bool printing = false;
-        private ProgressBar bar = null;
 
         public printOptionPage()
         {
             InitializeComponent();
+            //List<int> source = new List<int>();
+            //for (int i = 1; i < 100; i++)
+            //{
+            //    source.Add(i);
+            //}
+            //this.CopyCount.ItemsSource = source;
+            this.CopyCount.DataSource = new IntLoopingDataSource() { MinValue = 1, MaxValue = 60, SelectedItem = 1 };
+            dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 4);
         }
 
         private void printButton_Click(object sender, EventArgs e)
         {
-            bar = new ProgressBar();
-            bar.IsIndeterminate = true;
-            printing = true;           
+            startPrinting();
+        }
 
-            this.ContentPanel.Children.Add(bar);
-            this.ApplicationBar.IsVisible = false;
+        private void startPrinting()
+        {
+            if (!printing)
+            {
+                this.PrintingBar.Visibility = System.Windows.Visibility.Visible;
+                this.PrintingText.Visibility = System.Windows.Visibility.Visible;
+                this.ApplicationBar.IsVisible = false;
+                printing = true;
+                dispatcherTimer.Start();
+            }
+        }
 
-            dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-            dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 5);
-            dispatcherTimer.Start();
+        private void stopPrinting()
+        {
+            if (printing)
+            {
+                this.PrintingBar.Visibility = System.Windows.Visibility.Collapsed;
+                this.PrintingText.Visibility = System.Windows.Visibility.Collapsed;
+                this.ApplicationBar.IsVisible = true;
+                printing = false;
+                dispatcherTimer.Stop();
+            }
 
         }
 
         protected override void OnBackKeyPress(CancelEventArgs e)
         {
-            if (printing == true)
+            if (printing)
             {
-                printing = false;
-                this.ContentPanel.Children.Remove(bar);
-                this.ApplicationBar.IsVisible = true;
+                stopPrinting();
                 e.Cancel = true;
             }
         }
 
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            if (printing == true)
-            {
-                this.ContentPanel.Children.Remove(bar);
-                this.ApplicationBar.IsVisible = true;
-                printing = false;
-                NavigationService.GoBack();
-            }
+            stopPrinting();
+            NavigationService.GoBack();
         }
 
     }

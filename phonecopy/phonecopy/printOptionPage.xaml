@@ -6,6 +6,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls.Primitives;assembly=Microsoft.Phone.Controls.Toolkit"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -15,21 +16,54 @@
 
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
         <!--TitlePanel contains the name of the application and page title-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBlock x:Name="ApplicationTitle" Text="SMARTCOPY" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock x:Name="PageTitle" Text="Print options" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock x:Name="PageTitle" Text="Print" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <CheckBox Content="Print colored" Height="72" HorizontalAlignment="Left" Margin="9,6,0,0" Name="colorPrint" VerticalAlignment="Top" />
-            <CheckBox Content="Print 2-sided" Height="72" HorizontalAlignment="Left" Margin="12,62,0,0" Name="twoSidedCopy" VerticalAlignment="Top" />
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="25,11,-1,-11">
+
+            <toolkit:LoopingSelector 
+                Name="CopyCount"
+                IsExpanded="True"
+                ItemSize="75,75" Margin="4,128,338,373">
+                <toolkit:LoopingSelector.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock FontSize="36"
+                                    Margin="0,12,0,0"
+                                    VerticalAlignment="Stretch"
+                                   Canvas.ZIndex="100"
+                                    HorizontalAlignment="Center" Text="{Binding}"/>
+                    </DataTemplate>
+                </toolkit:LoopingSelector.ItemTemplate>
+            </toolkit:LoopingSelector>
+            <TextBlock Text="Number of copies" Margin="139,128,95,369" VerticalAlignment="Center" />
+            
+            <CheckBox Content="        Print colored"
+                      Height="72"
+                      HorizontalAlignment="Left"
+                      Margin="33,344,0,0"
+                      Name="colorPrint"
+                      VerticalAlignment="Top"
+                      
+                      Width="327" />
+            <CheckBox Content="        Print 2-sided"
+                      Height="72"
+                      HorizontalAlignment="Left"
+                      Margin="33,422,0,0"
+                      Name="twoSidedCopy"
+                      VerticalAlignment="Top" />
+            <TextBlock Name="PrintingText"
+                       Visibility="Collapsed"
+                       Text="Printing..."
+                       Margin="183,535,-183,-308" />
+            <ProgressBar IsIndeterminate="True"
+                         Visibility="Collapsed"
+                         Name="PrintingBar"
+                         Margin="0,0,0,74" Height="87" VerticalAlignment="Bottom" />
+         
         </Grid>
     </Grid>
  
@@ -38,5 +72,4 @@
             <shell:ApplicationBarIconButton IconUri="/icons/appbar.printer.blank.png" Text="Print" Click="printButton_Click"/>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
-
 </phone:PhoneApplicationPage>
