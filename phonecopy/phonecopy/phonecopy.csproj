@@ -66,6 +66,9 @@
     <Compile Include="Connect.xaml.cs">
       <DependentUpon>Connect.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DropboxMock.xaml.cs">
+      <DependentUpon>DropboxMock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="filelist.xaml.cs">
       <DependentUpon>filelist.xaml</DependentUpon>
     </Compile>
@@ -93,6 +96,10 @@
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
     <Page Include="Connect.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DropboxMock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -134,6 +141,7 @@
     </Content>
     <Resource Include="adobe_acrobat.png" />
     <Resource Include="icons\paper.png" />
+    <Resource Include="dropbox_mockup.png" />
     <Content Include="icons\appbar.check.rest.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -34,5 +34,11 @@ namespace phonecopy
             model.reset(true, 10);
             NavigationService.Navigate(new Uri("/filelist.xaml", UriKind.Relative));
         }
+
+        private void dropboxMockup(object sender, EventArgs e)
+        {
+            model.reset(true, 10);
+            NavigationService.Navigate(new Uri("/DropboxMock.xaml", UriKind.Relative));
+        }
     }
 }
